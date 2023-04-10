@@ -1,0 +1,8 @@
+require("zmum.colors")
+require("zmum.completion")
+require("zmum.plugins")
+require("zmum.remap")
+require("zmum.telescope")
+require("zmum.treesitter")
+require("zmum.vim_settings")
+require("zmum.lsp.init")
