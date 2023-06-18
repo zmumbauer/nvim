@@ -43,23 +43,36 @@ return packer.startup(function(use)
 	use("wbthomason/packer.nvim") -- Have packer manage itself
 	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
 	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
-
+	use({ "zbirenbaum/copilot.lua" })
+	use({
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua" },
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+	})
 	use({
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.1",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
-
 	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 	use("HiPhish/nvim-ts-rainbow2")
-
 	use({
 		"iamcco/markdown-preview.nvim",
 		run = function()
 			vim.fn["mkdp#util#install"]()
 		end,
 	})
-
+	use("stevearc/dressing.nvim")
+	use({
+		"ziontee113/icon-picker.nvim",
+		config = function()
+			require("icon-picker").setup({
+				disable_legacy_commands = true,
+			})
+		end,
+	})
 	-- use({
 	--   'glepnir/galaxyline.nvim',
 	--   branch = 'main',
@@ -69,22 +82,17 @@ return packer.startup(function(use)
 	--   -- some optional icons
 	--   requires = { 'nvim-tree/nvim-web-devicons', opt = true },
 	-- })
-
 	use({
 		"nvim-tree/nvim-tree.lua",
 		requires = { "nvim-tree/nvim-web-devicons", opt = true },
 	})
-
 	use({
 		"folke/trouble.nvim",
 		requires = { "nvim-tree/nvim-web-devicons", opt = true },
 	})
-
 	use("tpope/vim-fugitive") -- Adds git commands
 	use("tpope/vim-rails") -- Adds rails support
-
 	use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
-
 	-- completion plugins
 	use("hrsh7th/nvim-cmp") -- The completion plugin
 	use("hrsh7th/cmp-buffer") -- buffer completions
@@ -93,14 +101,9 @@ return packer.startup(function(use)
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-nvim-lua")
-
-	-- NERDTree
-	-- use "preservim/nerdtree"
-
 	-- snippets
 	use("L3MON4D3/LuaSnip") --snippet engine
 	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use-- Automatically set up your configuration after cloning packer.nvim
-
 	-- LSP
 	use({
 		"williamboman/mason.nvim",
@@ -109,19 +112,15 @@ return packer.startup(function(use)
 	use("williamboman/mason-lspconfig.nvim") -- simple to use language server installer
 	use("neovim/nvim-lspconfig") -- enable LSP
 	use("jose-elias-alvarez/null-ls.nvim") -- LSP diagnostics and code actions
-
+	use("jay-babu/mason-null-ls.nvim")
 	-- Running tests
 	use("vim-test/vim-test")
-
 	-- Commenting
 	use("tomtom/tcomment_vim")
-
 	-- Buffer Explorer
 	use("jlanzarotta/bufexplorer")
-
 	-- Auto pairs
 	use("windwp/nvim-autopairs")
-
 	-- Themes
 	use("EdenEast/nightfox.nvim")
 	use("kvrohit/substrata.nvim")

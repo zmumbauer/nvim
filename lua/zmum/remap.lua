@@ -1,4 +1,3 @@
-
 local opts = { noremap = true, silent = true }
 
 local term_opts = { silent = true }
@@ -13,10 +12,10 @@ vim.g.maplocalleader = " "
 
 -- For Testing
 vim.g.VimuxUseNearestPane = 1
-vim.g['test#strategy'] = {
-  nearest = 'vimux',
-  file = 'vimux',
-  suite = 'vimux'
+vim.g["test#strategy"] = {
+	nearest = "vimux",
+	file = "vimux",
+	suite = "vimux",
 }
 
 -- Modes
@@ -47,7 +46,7 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "n", "nzzzv")
 
 -- keep yanked text in buffer after paste
-vim.keymap.set("x", "<leader>p", "\"_dp")
+vim.keymap.set("x", "<leader>p", '"_dp')
 
 -- disable q
 vim.keymap.set("n", "q", "<nop>")
@@ -106,4 +105,10 @@ keymap("v", "<leader>cc", ":TComment<CR>", opts)
 -- LSP
 keymap("n", "gd", ":Telescope lsp_definitions<CR>", opts)
 keymap("n", "gr", ":Telescope lsp_references<CR>", opts)
+
+-- Telescope emoji
+vim.keymap.set("n", "<Leader><Leader>i", "<cmd>IconPickerNormal<cr>", opts)
+vim.keymap.set("n", "<Leader><Leader>y", "<cmd>IconPickerYank<cr>", opts) --> Yank the selected icon into register
+vim.keymap.set("i", "<C-i>", "<cmd>IconPickerInsert<cr>", opts)
+keymap("n", "<Leader>te", "<cmd>IconPickerNormal<cr>", opts)
 

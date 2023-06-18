@@ -1,7 +1,11 @@
+-- Server mapping
+-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+
 local servers = {
-  "lua_ls",
-  "ruby_ls",
-  "jsonls",
+	"lua_ls",
+	"ruby_ls",
+	"jsonls",
+	"emmet_ls",
 }
 
 local settings = {
@@ -36,14 +40,9 @@ for _, server in pairs(servers) do
 		capabilities = require("zmum.lsp.handlers").capabilities,
 	}
 
-  if server == "lua_ls" then
-    local lua_opts = require("zmum.lsp.settings.lua_ls")
-    opts = vim.tbl_deep_extend("force", lua_opts, opts)
-  end
-
 	server = vim.split(server, "@")[1]
 
-	local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
+	local require_ok, conf_opts = pcall(require, "zmum.lsp.settings." .. server)
 	if require_ok then
 		opts = vim.tbl_deep_extend("force", conf_opts, opts)
 	end

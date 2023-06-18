@@ -1,5 +1,6 @@
-local null_ls_status_ok, null_ls = pcall(require, "null-ls")
-if not null_ls_status_ok then
+local status_ok, null_ls = pcall(require, "null-ls")
+if not status_ok then
+	print("Error: ", null_ls)
 	return
 end
 
@@ -13,9 +14,13 @@ null_ls.setup({
 	sources = {
 		-- Lua
 		formatting.stylua,
+		diagnostics.luacheck,
 		-- Ruby
 		formatting.rubocop,
 		diagnostics.reek,
 		diagnostics.rubocop,
+		-- Typescript
+		formatting.prettier,
+		diagnostics.eslint,
 	},
 })
