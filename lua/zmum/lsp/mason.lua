@@ -1,12 +1,7 @@
 local servers = {
-  -- "lua_ls",
-	-- "cssls",
-	-- "html",
-	-- "tsserver",
-	-- "pyright",
-	-- "bashls",
-	-- "jsonls",
-	-- "yamlls",
+  "lua_ls",
+  "ruby_ls",
+  "jsonls",
 }
 
 local settings = {
@@ -37,9 +32,14 @@ local opts = {}
 
 for _, server in pairs(servers) do
 	opts = {
-		on_attach = require("user.lsp.handlers").on_attach,
-		capabilities = require("user.lsp.handlers").capabilities,
+		on_attach = require("zmum.lsp.handlers").on_attach,
+		capabilities = require("zmum.lsp.handlers").capabilities,
 	}
+
+  if server == "lua_ls" then
+    local lua_opts = require("zmum.lsp.settings.lua_ls")
+    opts = vim.tbl_deep_extend("force", lua_opts, opts)
+  end
 
 	server = vim.split(server, "@")[1]
 

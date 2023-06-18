@@ -11,6 +11,14 @@ keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- For Testing
+vim.g.VimuxUseNearestPane = 1
+vim.g['test#strategy'] = {
+  nearest = 'vimux',
+  file = 'vimux',
+  suite = 'vimux'
+}
+
 -- Modes
 --   normal_mode = "n",
 --   insert_mode = "i",
@@ -27,6 +35,8 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
 keymap("n", "<leader>e", ":Lex 30<cr>", opts)
+-- keymap("n", "<leader>n", ":NERDTreeToggle<cr>", opts)
+keymap("n", "<leader>n", ":NvimTreeToggle<cr>", opts)
 
 -- Cursor stays in center when paging up/down
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
@@ -79,3 +89,21 @@ keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
 keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+
+-- Testing --
+-- Remapping for vim-test
+keymap("n", "<leader>rc", ":TestContext<CR>", opts)
+keymap("n", "<leader>rb", ":wa<CR>:TestFile<CR>", opts)
+keymap("n", "<leader>rf", ":wa<CR>:TestNearest<CR>", opts)
+keymap("n", "<leader>rl", ":wa<CR>:TestLast<CR>", opts)
+keymap("n", "<leader>rx", ":wa<CR>:VimuxCloseRunner<CR>", opts)
+keymap("n", "<leader>ri", ":wa<CR>:VimuxInspectRunner<CR>", opts)
+
+-- Commenting
+keymap("n", "<leader>cc", ":TComment<CR>", opts)
+keymap("v", "<leader>cc", ":TComment<CR>", opts)
+
+-- LSP
+keymap("n", "gd", ":Telescope lsp_definitions<CR>", opts)
+keymap("n", "gr", ":Telescope lsp_references<CR>", opts)
+

@@ -17,13 +17,13 @@ end
 
 --   פּ ﯟ   some other good icons
 local kind_icons = {
-  Text = "",
+  Text = "󰊄",
   Method = "m",
-  Function = "",
+  Function = "󰡱",
   Constructor = "",
   Field = "",
-  Variable = "",
-  Class = "",
+  Variable = "󰫧",
+  Class = "",
   Interface = "",
   Module = "",
   Property = "",
@@ -33,18 +33,16 @@ local kind_icons = {
   Keyword = "",
   Snippet = "",
   Color = "",
-  File = "",
+  File = "",
   Reference = "",
-  Folder = "",
+  Folder = "",
   EnumMember = "",
-  Constant = "",
+  Constant = "󰫰",
   Struct = "",
   Event = "",
-  Operator = "",
-  TypeParameter = "",
+  Operator = "",
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
---
 
 cmp.setup {
   snippet = {
@@ -102,6 +100,8 @@ cmp.setup {
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[LUA]",
         luasnip = "[Snippet]",
         buffer = "[Buffer]",
         path = "[Path]",
@@ -111,6 +111,7 @@ cmp.setup {
   },
   sources = {
     { name = "nvim_lsp"},
+    { name = "nvim_lua"},
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
@@ -123,7 +124,7 @@ cmp.setup {
     documentation = cmp.config.window.bordered(),
   },
   experimental = {
-    ghost_text = true,
+    ghost_text = false,
     native_menu = false,
   },
 }
