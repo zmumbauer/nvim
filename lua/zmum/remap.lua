@@ -1,11 +1,10 @@
 local opts = { noremap = true, silent = true }
-
 local term_opts = { silent = true }
 
--- Shorten function name
+-- Shorten function name for setting keymaps
 local keymap = vim.api.nvim_set_keymap
 
---Remap space as leader key
+-- Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -18,97 +17,107 @@ vim.g["test#strategy"] = {
 	suite = "vimux",
 }
 
--- Modes
---   normal_mode = "n",
---   insert_mode = "i",
---   visual_mode = "v",
---   visual_block_mode = "x",
---   term_mode = "t",
---   command_mode = "c",
+local keymap_table = {
+	-- Normal mode remappings
+	n = {
+		-- Better window navigation using Ctrl + hjkl
+		{ "<C-h>", "<C-w>h" },
+		{ "<C-j>", "<C-w>j" },
+		{ "<C-k>", "<C-w>k" },
+		{ "<C-l>", "<C-w>l" },
 
--- Normal --
--- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+		-- Open file explorer with <leader>e
+		{ "<leader>e", ":Lex 30<cr>" },
 
-keymap("n", "<leader>e", ":Lex 30<cr>", opts)
--- keymap("n", "<leader>n", ":NERDTreeToggle<cr>", opts)
-keymap("n", "<leader>n", ":NvimTreeToggle<cr>", opts)
+		-- Toggle file tree with <leader>n
+		{ "<leader>n", ":NvimTreeToggle<cr>" },
 
--- Cursor stays in center when paging up/down
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+		-- Resize window using Ctrl + arrow keys
+		{ "<c-up>", ":resize +2<cr>" },
+		{ "<c-down>", ":resize -2<cr>" },
+		{ "<c-left>", ":vertical resize -2<cr>" },
+		{ "<c-right>", ":vertical resize +2<cr>" },
 
--- cursor stays in center when searching text
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "n", "nzzzv")
+		-- Navigate buffers with Shift + hj
+		{ "<s-l>", ":bnext<cr>" },
+		{ "<s-h>", ":bprevious<cr>" },
 
--- keep yanked text in buffer after paste
-vim.keymap.set("x", "<leader>p", '"_dp')
+		-- Run tests with different <leader> combinations
+		{ "<leader>rc", ":TestContext<CR>" },
+		{ "<leader>rb", ":wa<CR>:TestFile<CR>" },
+		{ "<leader>rf", ":wa<CR>:TestNearest<CR>" },
+		{ "<leader>rl", ":wa<CR>:TestLast<CR>" },
+		{ "<leader>rx", ":wa<CR>:VimuxCloseRunner<CR>" },
+		{ "<leader>ri", ":wa<CR>:VimuxInspectRunner<CR>" },
 
--- disable q
-vim.keymap.set("n", "q", "<nop>")
+		-- Comment code with <leader>cc
+		{ "<leader>cc", ":TComment<CR>" },
 
--- resize with arrows
-keymap("n", "<c-up>", ":resize +2<cr>", opts)
-keymap("n", "<c-down>", ":resize -2<cr>", opts)
-keymap("n", "<c-left>", ":vertical resize -2<cr>", opts)
-keymap("n", "<c-right>", ":vertical resize +2<cr>", opts)
+		-- Go to definition with gd
+		{ "gd", ":Telescope lsp_definitions<CR>" },
 
--- navigate buffers
-keymap("n", "<s-l>", ":bnext<cr>", opts)
-keymap("n", "<s-h>", ":bprevious<cr>", opts)
+		-- Find references with gr
+		{ "gr", ":Telescope lsp_references<CR>" },
 
--- insert --
--- press jk fast to enter
-keymap("i", "jk", "<esc>", opts)
+		-- Telescope emoji picker
+		{ "<Leader>te", "<cmd>IconPickerNormal<cr>" },
 
--- visual --
--- stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+		-- Close buffer with leader bd
+		{ "<leader>bd", ":bd<CR>" },
+	},
 
--- Move text up and down
-keymap("v", "<A-j>", ":m .+1<CR>==", opts)
-keymap("v", "<A-k>", ":m .-2<CR>==", opts)
-keymap("v", "p", '"_dP', opts)
+	-- Insert mode remappings
+	i = {
+		-- Press jk quickly to exit insert mode
+		{ "jk", "<esc>" },
+	},
 
--- Visual Block --
--- Move text up and down
-keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
-keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+	-- Visual mode remappings
+	v = {
+		-- Keep selection when shifting text left or right
+		{ "<", "<gv" },
+		{ ">", ">gv" },
 
--- Terminal --
--- Better terminal navigation
-keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
-keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
-keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
-keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+		-- Move selected lines up or down with Alt + jk
+		{ "<A-j>", ":m .+1<CR>==" },
+		{ "<A-k>", ":m .-2<CR>==" },
 
--- Testing --
--- Remapping for vim-test
-keymap("n", "<leader>rc", ":TestContext<CR>", opts)
-keymap("n", "<leader>rb", ":wa<CR>:TestFile<CR>", opts)
-keymap("n", "<leader>rf", ":wa<CR>:TestNearest<CR>", opts)
-keymap("n", "<leader>rl", ":wa<CR>:TestLast<CR>", opts)
-keymap("n", "<leader>rx", ":wa<CR>:VimuxCloseRunner<CR>", opts)
-keymap("n", "<leader>ri", ":wa<CR>:VimuxInspectRunner<CR>", opts)
+		-- Paste without overwriting the register contents
+		{ "p", '"_dP' },
 
--- Commenting
-keymap("n", "<leader>cc", ":TComment<CR>", opts)
-keymap("v", "<leader>cc", ":TComment<CR>", opts)
+		-- Comment selected lines with <leader>cc
+		{ "<leader>cc", ":TComment<CR>" },
+	},
 
--- LSP
-keymap("n", "gd", ":Telescope lsp_definitions<CR>", opts)
-keymap("n", "gr", ":Telescope lsp_references<CR>", opts)
+	-- Visual Block mode remappings
+	x = {
+		-- Move selected block of text up or down with J and K
+		{ "J", ":move '>+1<CR>gv-gv" },
+		{ "K", ":move '<-2<CR>gv-gv" },
 
--- Telescope emoji
-vim.keymap.set("n", "<Leader><Leader>i", "<cmd>IconPickerNormal<cr>", opts)
-vim.keymap.set("n", "<Leader><Leader>y", "<cmd>IconPickerYank<cr>", opts) --> Yank the selected icon into register
-vim.keymap.set("i", "<C-i>", "<cmd>IconPickerInsert<cr>", opts)
-keymap("n", "<Leader>te", "<cmd>IconPickerNormal<cr>", opts)
+		-- Move selected block of text up or down with Alt + jk
+		{ "<A-j>", ":move '>+1<CR>gv-gv" },
+		{ "<A-k>", ":move '<-2<CR>gv-gv" },
+	},
 
+	-- Terminal mode remappings
+	t = {
+		-- Better terminal navigation using Ctrl + hjkl
+		{ "<C-h>", "<C-\\><C-N><C-w>h" },
+		{ "<C-j>", "<C-\\><C-N><C-w>j" },
+		{ "<C-k>", "<C-\\><C-N><C-w>k" },
+		{ "<C-l>", "<C-\\><C-N><C-w>l" },
+	},
+}
+
+-- Loop through and apply the key remappings
+for mode, mappings in pairs(keymap_table) do
+	for _, mapping in pairs(mappings) do
+		local lhs, rhs = unpack(mapping)
+		if mode == "t" then
+			keymap(mode, lhs, rhs, term_opts)
+		else
+			keymap(mode, lhs, rhs, opts)
+		end
+	end
+end

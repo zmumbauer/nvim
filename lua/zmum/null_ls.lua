@@ -12,15 +12,13 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
 	debug = false,
 	sources = {
-		-- Lua
 		formatting.stylua,
 		diagnostics.luacheck,
-		-- Ruby
 		formatting.rubocop,
 		diagnostics.reek,
 		diagnostics.rubocop,
-		-- Typescript
 		formatting.prettier,
+		formatting.prettierd,
 		diagnostics.eslint,
 	},
 })

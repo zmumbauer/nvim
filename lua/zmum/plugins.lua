@@ -93,17 +93,15 @@ local plugins = {
 	"windwp/nvim-autopairs",
 	"EdenEast/nightfox.nvim",
 	"kvrohit/substrata.nvim",
+	{ "ellisonleao/gruvbox.nvim", priority = 1000 },
 	"lewis6991/gitsigns.nvim",
+	{
+		"nvim-lualine/lualine.nvim",
+		event = { "BufRead", "BufNewFile", "VimEnter" },
+		dependencies = { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
+		opts = {},
+	},
 }
--- {
---   'glepnir/galaxyline.nvim',
---   branch = 'main',
---   config = function()
---     require('zmum.status_line')
---   end,
---   -- some optional icons
---   dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
--- }
 
 local opts = {}
 
