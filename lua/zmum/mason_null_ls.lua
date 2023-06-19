@@ -6,5 +6,5 @@ if not status_ok then
 end
 
 mason_null_ls.setup({
-	ensure_installed = { "stylua", "luacheck", "markdownlint", "eslint", "prettier", "prettierd" },
+	ensure_installed = { "stylua", "luacheck", "markdownlint", "eslint", "prettier", "prettierd", "rubocop" },
 })

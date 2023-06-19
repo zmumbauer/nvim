@@ -14,9 +14,25 @@ null_ls.setup({
 	sources = {
 		formatting.stylua,
 		diagnostics.luacheck,
-		formatting.rubocop,
+		formatting.rubocop.with({
+			command = "bundle",
+			args = {
+				"exec",
+				"rubocop",
+				"-a",
+				"-f",
+				"quiet",
+				"--stderr",
+				"--stdin",
+				"$FILENAME",
+			},
+			to_stdin = true,
+		}),
+		diagnostics.rubocop.with({
+			command = "bundle",
+			args = { "exec", "rubocop", "-f", "json", "--force-exclusion", "--stdin", "$FILENAME" },
+		}),
 		diagnostics.reek,
-		diagnostics.rubocop,
 		formatting.prettier,
 		formatting.prettierd,
 		diagnostics.eslint,
