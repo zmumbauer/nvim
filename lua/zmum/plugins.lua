@@ -42,7 +42,7 @@ local plugins = {
 		version = "0.1.1",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", version = nil },
 	"HiPhish/nvim-ts-rainbow2",
 	{
 		"iamcco/markdown-preview.nvim",

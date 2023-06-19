@@ -1,6 +1,6 @@
+require("zmum.plugins")
 require("zmum.colorscheme")
 require("zmum.cmp")
-require("zmum.plugins")
 require("zmum.remap")
 require("zmum.treesitter")
 require("zmum.vim_settings")
