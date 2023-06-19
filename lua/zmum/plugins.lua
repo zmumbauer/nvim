@@ -1,133 +1,110 @@
-local fn = vim.fn
--- Automatically install packer
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-	PACKER_BOOTSTRAP = fn.system({
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
 		"git",
 		"clone",
-		"--depth",
-		"1",
-		"https://github.com/wbthomason/packer.nvim",
-		install_path,
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
 	})
-	print("Installing packer close and reopen Neovim...")
-	vim.cmd([[packadd packer.nvim]])
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
+local status_ok, lazy = pcall(require, "lazy")
 
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
 if not status_ok then
-	print("Packer unavailable")
+	print("Lazy unavailable")
 	return
 end
 
--- Have packer use a popup window
-packer.init({
-	display = {
-		open_fn = function()
-			return require("packer.util").float({ border = "rounded" })
-		end,
-	},
-})
+vim.cmd([[
+  augroup lazy_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | Lazy sync
+  augroup end
+]])
 
 -- Install your plugins here
-return packer.startup(function(use)
-	use("wbthomason/packer.nvim") -- Have packer manage itself
-	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
-	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
-	use({ "zbirenbaum/copilot.lua" })
-	use({
+local plugins = {
+	"nvim-lua/popup.nvim",
+	"nvim-lua/plenary.nvim",
+	{ "zbirenbaum/copilot.lua" },
+	{
 		"zbirenbaum/copilot-cmp",
-		after = { "copilot.lua" },
+		dependencies = { "copilot.lua" },
 		config = function()
 			require("copilot_cmp").setup()
 		end,
-	})
-	use({
+	},
+	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.1",
-		requires = { { "nvim-lua/plenary.nvim" } },
-	})
-	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-	use("HiPhish/nvim-ts-rainbow2")
-	use({
+		version = "0.1.1",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	"HiPhish/nvim-ts-rainbow2",
+	{
 		"iamcco/markdown-preview.nvim",
-		run = function()
+		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,
-	})
-	use("stevearc/dressing.nvim")
-	use({
+	},
+	"stevearc/dressing.nvim",
+	{
 		"ziontee113/icon-picker.nvim",
 		config = function()
 			require("icon-picker").setup({
 				disable_legacy_commands = true,
 			})
 		end,
-	})
-	-- use({
-	--   'glepnir/galaxyline.nvim',
-	--   branch = 'main',
-	--   config = function()
-	--     require('zmum.status_line')
-	--   end,
-	--   -- some optional icons
-	--   requires = { 'nvim-tree/nvim-web-devicons', opt = true },
-	-- })
-	use({
+	},
+	{
 		"nvim-tree/nvim-tree.lua",
-		requires = { "nvim-tree/nvim-web-devicons", opt = true },
-	})
-	use({
+		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
+	},
+	{
 		"folke/trouble.nvim",
-		requires = { "nvim-tree/nvim-web-devicons", opt = true },
-	})
-	use("tpope/vim-fugitive") -- Adds git commands
-	use("tpope/vim-rails") -- Adds rails support
-	use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
-	-- completion plugins
-	use("hrsh7th/nvim-cmp") -- The completion plugin
-	use("hrsh7th/cmp-buffer") -- buffer completions
-	use("hrsh7th/cmp-path") -- path completions
-	use("hrsh7th/cmp-cmdline") -- cmdline completions
-	use("saadparwaiz1/cmp_luasnip") -- snippet completions
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/cmp-nvim-lua")
-	-- snippets
-	use("L3MON4D3/LuaSnip") --snippet engine
-	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use-- Automatically set up your configuration after cloning packer.nvim
-	-- LSP
-	use({
+		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
+	},
+	"tpope/vim-fugitive",
+	"tpope/vim-rails",
+	{ "akinsho/bufferline.nvim", dependencies = "nvim-tree/nvim-web-devicons" },
+	"hrsh7th/nvim-cmp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
+	"saadparwaiz1/cmp_luasnip",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-nvim-lua",
+	"L3MON4D3/LuaSnip",
+	"rafamadriz/friendly-snippets",
+	{
 		"williamboman/mason.nvim",
-		run = ":MasonUpdate",
-	})
-	use("williamboman/mason-lspconfig.nvim") -- simple to use language server installer
-	use("neovim/nvim-lspconfig") -- enable LSP
-	use("jose-elias-alvarez/null-ls.nvim") -- LSP diagnostics and code actions
-	use("jay-babu/mason-null-ls.nvim")
-	-- Running tests
-	use("vim-test/vim-test")
-	-- Commenting
-	use("tomtom/tcomment_vim")
-	-- Buffer Explorer
-	use("jlanzarotta/bufexplorer")
-	-- Auto pairs
-	use("windwp/nvim-autopairs")
-	-- Themes
-	use("EdenEast/nightfox.nvim")
-	use("kvrohit/substrata.nvim")
-	use("lewis6991/gitsigns.nvim")
+		build = ":MasonUpdate",
+	},
+	"williamboman/mason-lspconfig.nvim",
+	"neovim/nvim-lspconfig",
+	"jose-elias-alvarez/null-ls.nvim",
+	"jay-babu/mason-null-ls.nvim",
+	"vim-test/vim-test",
+	"tomtom/tcomment_vim",
+	"jlanzarotta/bufexplorer",
+	"windwp/nvim-autopairs",
+	"EdenEast/nightfox.nvim",
+	"kvrohit/substrata.nvim",
+	"lewis6991/gitsigns.nvim",
+}
+-- {
+--   'glepnir/galaxyline.nvim',
+--   branch = 'main',
+--   config = function()
+--     require('zmum.status_line')
+--   end,
+--   -- some optional icons
+--   dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
+-- }
 
-	-- Put this at the end after all plugins
-	if PACKER_BOOTSTRAP then
-		require("packer").sync()
-	end
-end)
+local opts = {}
+
+lazy.setup(plugins, opts)
