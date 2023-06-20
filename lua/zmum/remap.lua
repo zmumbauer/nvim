@@ -26,6 +26,9 @@ local keymap_table = {
 		{ "<C-k>", "<C-w>k" },
 		{ "<C-l>", "<C-w>l" },
 
+    -- Buffer explorer
+		{ "<leader>be", ":ToggleBufExplorer<cr>" },
+
 		-- Open file explorer with <leader>e
 		{ "<leader>e", ":Lex 30<cr>" },
 
