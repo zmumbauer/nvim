@@ -3,7 +3,8 @@
 
 local servers = {
 	"lua_ls",
-	"ruby_ls",
+	-- "ruby_ls",
+	"solargraph",
 	"jsonls",
 	"emmet_ls",
 }

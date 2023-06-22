@@ -91,9 +91,13 @@ local plugins = {
 	"tomtom/tcomment_vim",
 	"jlanzarotta/bufexplorer",
 	"windwp/nvim-autopairs",
+
+	-- themes
 	"EdenEast/nightfox.nvim",
 	"kvrohit/substrata.nvim",
 	{ "ellisonleao/gruvbox.nvim", priority = 1000 },
+	"sonph/onehalf",
+
 	"lewis6991/gitsigns.nvim",
 	{
 		"nvim-lualine/lualine.nvim",
