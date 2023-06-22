@@ -32,7 +32,7 @@ local settings = {
 	{ "cursorline", true, "highlight the current line" },
 	{ "number", true, "set numbered lines" },
 	{ "incsearch", true },
-	{ "colorcolumn", "80" },
+	{ "colorcolumn", '' },
 	{ "relativenumber", true, "set relative numbered lines" },
 	{ "numberwidth", 4, "set number column width to 4 (default is 4)" },
 	{ "signcolumn", "yes", "always show the sign column, otherwise it would shift the text each time" },
