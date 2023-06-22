@@ -97,6 +97,11 @@ local plugins = {
 	"kvrohit/substrata.nvim",
 	{ "ellisonleao/gruvbox.nvim", priority = 1000 },
 	"sonph/onehalf",
+	"navarasu/onedark.nvim",
+	"rebelot/kanagawa.nvim",
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	"ayu-theme/ayu-vim",
+	"nyoom-engineering/oxocarbon.nvim",
 
 	"lewis6991/gitsigns.nvim",
 	{

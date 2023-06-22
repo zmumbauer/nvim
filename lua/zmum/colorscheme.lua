@@ -1,6 +1,6 @@
 vim.cmd([[
 try
-colorscheme carbonfox
+colorscheme oxocarbon
 catch /^Vim\%((\a\+)\)\=:E185/
 colorscheme default
 set background=dark
