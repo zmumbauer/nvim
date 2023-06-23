@@ -88,6 +88,7 @@ local plugins = {
 	"jose-elias-alvarez/null-ls.nvim",
 	"jay-babu/mason-null-ls.nvim",
 	"vim-test/vim-test",
+	"preservim/vimux",
 	"tomtom/tcomment_vim",
 	"jlanzarotta/bufexplorer",
 	"windwp/nvim-autopairs",
