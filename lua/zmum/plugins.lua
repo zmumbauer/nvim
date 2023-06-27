@@ -18,12 +18,12 @@ if not status_ok then
 	return
 end
 
-vim.cmd([[
-  augroup lazy_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | Lazy sync
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup lazy_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | Lazy sync
+--   augroup end
+-- ]])
 
 -- Install your plugins here
 local plugins = {
