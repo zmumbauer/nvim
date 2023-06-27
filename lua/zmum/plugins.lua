@@ -116,6 +116,7 @@ local plugins = {
 	"mfussenegger/nvim-dap",
 	{ "zmumbauer/nvim-dap-ruby", dependencies = "mfussenegger/nvim-dap" },
 	"tpope/vim-endwise",
+	{ "akinsho/git-conflict.nvim", version = "*", config = true },
 }
 
 local opts = {}
