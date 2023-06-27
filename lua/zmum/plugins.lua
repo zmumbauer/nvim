@@ -69,6 +69,8 @@ local plugins = {
 	},
 	"tpope/vim-fugitive",
 	"tpope/vim-rails",
+	"tpope/vim-endwise",
+	"mechatroner/rainbow_csv",
 	{ "akinsho/bufferline.nvim", dependencies = "nvim-tree/nvim-web-devicons" },
 	"hrsh7th/nvim-cmp",
 	"hrsh7th/cmp-buffer",
@@ -111,6 +113,9 @@ local plugins = {
 		dependencies = { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
 		opts = {},
 	},
+	"mfussenegger/nvim-dap",
+	{ "zmumbauer/nvim-dap-ruby", dependencies = "mfussenegger/nvim-dap" },
+	"tpope/vim-endwise",
 }
 
 local opts = {}
