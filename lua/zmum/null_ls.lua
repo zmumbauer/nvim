@@ -14,6 +14,7 @@ null_ls.setup({
 	sources = {
 		formatting.stylua,
 		diagnostics.luacheck,
+		diagnostics.shellcheck,
 		formatting.rubocop.with({
 			command = "bundle",
 			args = {

@@ -52,6 +52,9 @@ local keymap_table = {
 		{ "<leader>rl", ":wa<CR>:TestLast<CR>" },
 		{ "<leader>rx", ":wa<CR>:VimuxCloseRunner<CR>" },
 		{ "<leader>ri", ":wa<CR>:VimuxInspectRunner<CR>" },
+    
+    -- Markdown preview with glow
+		{ "<leader>md", ":Glow<CR>" },
 
 		-- Comment code with <leader>cc
 		{ "<leader>cc", ":TComment<CR>" },
