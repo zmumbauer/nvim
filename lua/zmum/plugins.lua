@@ -61,7 +61,14 @@ local plugins = {
 	},
 	{
 		"nvim-tree/nvim-tree.lua",
-		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
+		version = "*",
+		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("nvim-tree").setup({})
+		end,
 	},
 	{
 		"folke/trouble.nvim",
