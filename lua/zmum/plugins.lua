@@ -114,7 +114,7 @@ local plugins = {
 		opts = {},
 	},
 	"mfussenegger/nvim-dap",
-	{ "zmumbauer/nvim-dap-ruby", dependencies = "mfussenegger/nvim-dap" },
+	-- { "zmumbauer/nvim-dap-ruby", dependencies = "mfussenegger/nvim-dap" },
 	"tpope/vim-endwise",
 	-- {
 	-- 	"nvim-neotest/neotest",
@@ -126,8 +126,15 @@ local plugins = {
 	-- 		"nvim-neotest/neotest-vim-test",
 	-- 	},
 	-- },
-	{ "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
-
+{
+    'MeanderingProgrammer/render-markdown.nvim',
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    -- -@type render.md.UserConfig
+    opts = {},
+}
 	-- { "akinsho/git-conflict.nvim", version = "*", config = true },
 }
 
