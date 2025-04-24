@@ -29,21 +29,14 @@ end
 local plugins = {
 	"nvim-lua/popup.nvim",
 	"nvim-lua/plenary.nvim",
-	{ "zbirenbaum/copilot.lua" },
-	{
-		"zbirenbaum/copilot-cmp",
-		dependencies = { "copilot.lua" },
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-	},
+	{ "github/copilot.vim" },
 	{
 		"nvim-telescope/telescope.nvim",
 		version = "0.1.4",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", version = nil },
-	"HiPhish/nvim-ts-rainbow2",
+	"HiPhish/rainbow-delimiters.nvim",
 	{
 		"iamcco/markdown-preview.nvim",
 		build = function()
@@ -94,7 +87,7 @@ local plugins = {
 	},
 	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",
-	"jose-elias-alvarez/null-ls.nvim",
+	"nvimtools/none-ls.nvim",
 	"jay-babu/mason-null-ls.nvim",
 	"vim-test/vim-test",
 	"preservim/vimux",
