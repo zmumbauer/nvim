@@ -116,25 +116,25 @@ local plugins = {
 	"mfussenegger/nvim-dap",
 	-- { "zmumbauer/nvim-dap-ruby", dependencies = "mfussenegger/nvim-dap" },
 	"tpope/vim-endwise",
-	-- {
-	-- 	"nvim-neotest/neotest",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-treesitter/nvim-treesitter",
-	-- 		"antoinemadec/FixCursorHold.nvim",
-	-- 		"olimorris/neotest-rspec",
-	-- 		"nvim-neotest/neotest-vim-test",
-	-- 	},
-	-- },
-{
-    'MeanderingProgrammer/render-markdown.nvim',
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-    ---@module 'render-markdown'
-    -- -@type render.md.UserConfig
-    opts = {},
-}
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"olimorris/neotest-rspec",
+		},
+	},
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+		---@module 'render-markdown'
+		-- -@type render.md.UserConfig
+		opts = {},
+	},
 	-- { "akinsho/git-conflict.nvim", version = "*", config = true },
 }
 
