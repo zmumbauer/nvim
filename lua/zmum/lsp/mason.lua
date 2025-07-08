@@ -7,6 +7,8 @@ local servers = {
 	"solargraph",
 	"jsonls",
 	"emmet_ls",
+	"prettierd",
+	"prettier",
 }
 
 local settings = {
