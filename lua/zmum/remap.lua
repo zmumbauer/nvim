@@ -1,129 +1,62 @@
-local opts = { noremap = true, silent = true }
-local term_opts = { silent = true }
+local keymap = vim.keymap.set
 
--- Shorten function name for setting keymaps
-local keymap = vim.api.nvim_set_keymap
+-- General
 
--- Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+keymap("n", "<leader>e", ":Lex 30<cr>")
+keymap("n", "<leader>n", ":NvimTreeToggle<cr>")
+keymap("n", "<leader>be", ":ToggleBufExplorer<cr>")
+keymap("n", "<leader>bd", ":bd<CR>")
 
--- For Testing
-vim.g.VimuxUseNearestPane = 1
-vim.g["test#strategy"] = {
-	nearest = "vimux",
-	file = "vimux",
-	suite = "vimux",
-}
+-- Window navigation
+keymap("n", "<C-h>", "<C-w>h")
+keymap("n", "<C-j>", "<C-w>j")
+keymap("n", "<C-k>", "<C-w>k")
+keymap("n", "<C-l>", "<C-w>l")
 
-local keymap_table = {
-	-- Normal mode remappings
-	n = {
-		-- Better window navigation using Ctrl + hjkl
-		{ "<C-h>", "<C-w>h" },
-		{ "<C-j>", "<C-w>j" },
-		{ "<C-k>", "<C-w>k" },
-		{ "<C-l>", "<C-w>l" },
+-- Window resizing
+keymap("n", "<c-up>", ":resize +2<cr>")
+keymap("n", "<c-down>", ":resize -2<cr>")
+keymap("n", "<c-left>", ":vertical resize -2<cr>")
+keymap("n", "<c-right>", ":vertical resize +2<cr>")
 
-    -- Buffer explorer
-		{ "<leader>be", ":ToggleBufExplorer<cr>" },
+-- Buffer navigation
+keymap("n", "<s-l>", ":bnext<cr>")
+keymap("n", "<s-h>", ":bprevious<cr>")
 
-		-- Open file explorer with <leader>e
-		{ "<leader>e", ":Lex 30<cr>" },
 
-		-- Toggle file tree with <leader>n
-		{ "<leader>n", ":NvimTreeToggle<cr>" },
 
-		-- Resize window using Ctrl + arrow keys
-		{ "<c-up>", ":resize +2<cr>" },
-		{ "<c-down>", ":resize -2<cr>" },
-		{ "<c-left>", ":vertical resize -2<cr>" },
-		{ "<c-right>", ":vertical resize +2<cr>" },
+-- Markdown
+keymap("n", "<leader>md", ":Glow<CR>")
 
-		-- Navigate buffers with Shift + hj
-		{ "<s-l>", ":bnext<cr>" },
-		{ "<s-h>", ":bprevious<cr>" },
+-- Comments
+keymap("n", "<leader>cc", ":TComment<CR>")
+keymap("v", "<leader>cc", ":TComment<CR>")
 
-		-- Run tests with different <leader> combinations
-		{ "<leader>rc", ":TestContext<CR>" },
-		{ "<leader>rb", ":wa<CR>:TestFile<CR>" },
-		{ "<leader>rf", ":wa<CR>:TestNearest<CR>" },
-		{ "<leader>rl", ":wa<CR>:TestLast<CR>" },
-		{ "<leader>rx", ":wa<CR>:VimuxCloseRunner<CR>" },
-		{ "<leader>ri", ":wa<CR>:VimuxInspectRunner<CR>" },
-    
-    -- Markdown preview with glow
-		{ "<leader>md", ":Glow<CR>" },
+-- LSP
+keymap("n", "gd", ":Telescope lsp_definitions<CR>")
+keymap("n", "gr", ":Telescope lsp_references<CR>")
 
-		-- Comment code with <leader>cc
-		{ "<leader>cc", ":TComment<CR>" },
+-- Telescope
+keymap("n", "<Leader>te", "<cmd>IconPickerNormal<cr>")
 
-		-- Go to definition with gd
-		{ "gd", ":Telescope lsp_definitions<CR>" },
+-- Insert mode
+keymap("i", "jk", "<esc>")
 
-		-- Find references with gr
-		{ "gr", ":Telescope lsp_references<CR>" },
+-- Visual mode
+keymap("v", "<", "<gv")
+keymap("v", ">", ">gv")
+keymap("v", "<A-j>", ":m .+1<CR>==")
+keymap("v", "<A-k>", ":m .-2<CR>==")
+keymap("v", "p", '"_dP')
 
-		-- Telescope emoji picker
-		{ "<Leader>te", "<cmd>IconPickerNormal<cr>" },
+-- Visual Block mode
+keymap("x", "J", ":move '>+1<CR>gv-gv")
+keymap("x", "K", ":move '<-2<CR>gv-gv")
+keymap("x", "<A-j>", ":move '>+1<CR>gv-gv")
+keymap("x", "<A-k>", ":move '<-2<CR>gv-gv")
 
-		-- Close buffer with leader bd
-		{ "<leader>bd", ":bd<CR>" },
-	},
-
-	-- Insert mode remappings
-	i = {
-		-- Press jk quickly to exit insert mode
-		{ "jk", "<esc>" },
-	},
-
-	-- Visual mode remappings
-	v = {
-		-- Keep selection when shifting text left or right
-		{ "<", "<gv" },
-		{ ">", ">gv" },
-
-		-- Move selected lines up or down with Alt + jk
-		{ "<A-j>", ":m .+1<CR>==" },
-		{ "<A-k>", ":m .-2<CR>==" },
-
-		-- Paste without overwriting the register contents
-		{ "p", '"_dP' },
-
-		-- Comment selected lines with <leader>cc
-		{ "<leader>cc", ":TComment<CR>" },
-	},
-
-	-- Visual Block mode remappings
-	x = {
-		-- Move selected block of text up or down with J and K
-		{ "J", ":move '>+1<CR>gv-gv" },
-		{ "K", ":move '<-2<CR>gv-gv" },
-
-		-- Move selected block of text up or down with Alt + jk
-		{ "<A-j>", ":move '>+1<CR>gv-gv" },
-		{ "<A-k>", ":move '<-2<CR>gv-gv" },
-	},
-
-	-- Terminal mode remappings
-	t = {
-		-- Better terminal navigation using Ctrl + hjkl
-		{ "<C-h>", "<C-\\><C-N><C-w>h" },
-		{ "<C-j>", "<C-\\><C-N><C-w>j" },
-		{ "<C-k>", "<C-\\><C-N><C-w>k" },
-		{ "<C-l>", "<C-\\><C-N><C-w>l" },
-	},
-}
-
--- Loop through and apply the key remappings
-for mode, mappings in pairs(keymap_table) do
-	for _, mapping in pairs(mappings) do
-		local lhs, rhs = unpack(mapping)
-		if mode == "t" then
-			keymap(mode, lhs, rhs, term_opts)
-		else
-			keymap(mode, lhs, rhs, opts)
-		end
-	end
-end
+-- Terminal mode
+keymap("t", "<C-h>", "<C-\\><C-N><C-w>h")
+keymap("t", "<C-j>", "<C-\\><C-N><C-w>j")
+keymap("t", "<C-k>", "<C-\\><C-N><C-w>k")
+keymap("t", "<C-l>", "<C-\\><C-N><C-w>l")

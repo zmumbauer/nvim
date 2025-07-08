@@ -1,9 +1,4 @@
-local status_ok, gitsigns = pcall(require, "gitsigns")
-
-if not status_ok then
-  print("Error: ", gitsigns)
-  return
-end
+local gitsigns = require("gitsigns")
 
 gitsigns.setup({
 	signs = {
@@ -43,7 +38,5 @@ gitsigns.setup({
 		row = 0,
 		col = 1,
 	},
-	yadm = {
-		enable = false,
-	},
+	
 })

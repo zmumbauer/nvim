@@ -1,32 +1,4 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
-
-local status_ok, lazy = pcall(require, "lazy")
-
-if not status_ok then
-	print("Lazy unavailable")
-	return
-end
-
--- vim.cmd([[
---   augroup lazy_user_config
---     autocmd!
---     autocmd BufWritePost plugins.lua source <afile> | Lazy sync
---   augroup end
--- ]])
-
--- Install your plugins here
-local plugins = {
+return {
 	"nvim-lua/popup.nvim",
 	"nvim-lua/plenary.nvim",
 	{ "github/copilot.vim" },
@@ -87,10 +59,9 @@ local plugins = {
 	},
 	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",
-	"nvimtools/none-ls.nvim",
-	"jay-babu/mason-null-ls.nvim",
-	"vim-test/vim-test",
-	"preservim/vimux",
+	
+	-- "vim-test/vim-test",
+	-- "preservim/vimux",
 	"tomtom/tcomment_vim",
 	"jlanzarotta/bufexplorer",
 	"windwp/nvim-autopairs",
@@ -135,9 +106,6 @@ local plugins = {
 		-- -@type render.md.UserConfig
 		opts = {},
 	},
-	-- { "akinsho/git-conflict.nvim", version = "*", config = true },
+	{ "stevearc/conform.nvim", opts = {} },
+	{ "mfussenegger/nvim-lint" },
 }
-
-local opts = {}
-
-lazy.setup(plugins, opts)
