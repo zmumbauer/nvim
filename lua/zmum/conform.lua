@@ -9,5 +9,11 @@ require("conform").setup({
     json = { "prettierd", "prettier" },
     yaml = { "prettierd", "prettier" },
     markdown = { "prettierd", "prettier" },
+  markdown = { "prettierd", "prettier" },
+  },
+  formatters = {
+    shfmt = {
+      args = { "-i", "2" }, -- Example: Use 2-space indentation for shfmt
+    },
   },
 })

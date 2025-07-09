@@ -11,6 +11,10 @@ end)
 local telescope = require("telescope")
 
 telescope.setup({
+	defaults = {
+		hidden = true,
+		file_ignore_patterns = {".git/"},
+	},
 	pickers = {
 		colorscheme = {
 			enable_preview = true,

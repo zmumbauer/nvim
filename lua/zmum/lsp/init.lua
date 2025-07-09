@@ -1,13 +1,13 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "solargraph", "jsonls", "emmet_ls" },
+    ensure_installed = { "lua_ls", "solargraph", "jsonls", "emmet_ls", "bashls" },
     automatic_installation = true,
 })
 
 local lspconfig = require("lspconfig")
 local handlers = require("zmum.lsp.handlers")
 
-local servers = { "lua_ls", "solargraph", "jsonls", "emmet_ls" }
+local servers = { "lua_ls", "solargraph", "jsonls", "emmet_ls", "bashls" }
 
 for _, server_name in ipairs(servers) do
     local opts = {

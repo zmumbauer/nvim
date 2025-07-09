@@ -42,6 +42,11 @@ keymap("n", "<Leader>te", "<cmd>IconPickerNormal<cr>")
 -- Insert mode
 keymap("i", "jk", "<esc>")
 
+-- Formatting
+keymap("n", "<leader>lf", function()
+  require("conform").format({ async = true, lsp_fallback = true })
+end, { desc = "Format file" })
+
 -- Visual mode
 keymap("v", "<", "<gv")
 keymap("v", ">", ">gv")
