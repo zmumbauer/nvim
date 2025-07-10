@@ -2,7 +2,7 @@ local lint = require("lint")
 
 lint.linters_by_ft = {
   lua = { "luacheck" },
-  ruby = { "rubocop", "reek" },
+  ruby = { "rubocop" },
   javascript = { "eslint" },
   typescript = { "eslint" },
   sh = { "shellcheck" },
