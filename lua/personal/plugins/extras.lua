@@ -48,18 +48,48 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
-    opts = {
-      options = {
+    opts = function(_, opts)
+      local theme = require("personal.ui.bufferline")
+
+      opts = opts or {}
+      opts.options = vim.tbl_deep_extend("force", opts.options or {}, {
         diagnostics = "nvim_lsp",
-        separator_style = "slant",
+        themable = false,
+        separator_style = "thin",
+        show_close_icon = false,
+        show_buffer_close_icons = false,
+        indicator = {
+          style = "underline",
+        },
         offsets = {
           {
             filetype = "NvimTree",
-            text = "File Explorer",
-            separator = true,
+            text = "Explorer",
+            separator = false,
           },
         },
-      },
-    },
+      })
+      opts.highlights = theme.build_highlights()
+
+      return opts
+    end,
+    config = function(_, opts)
+      local bufferline = require("bufferline")
+      local theme = require("personal.ui.bufferline")
+      local augroup = vim.api.nvim_create_augroup("PersonalBufferlineTheme", { clear = true })
+
+      local function apply()
+        opts.highlights = theme.build_highlights()
+        bufferline.setup(opts)
+        theme.apply_tabline()
+      end
+
+      apply()
+
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        group = augroup,
+        callback = apply,
+      })
+    end,
   },
 }

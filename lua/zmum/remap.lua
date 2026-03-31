@@ -46,6 +46,9 @@ keymap("i", "jk", "<esc>")
 keymap("n", "<leader>lf", function()
   require("conform").format({ async = true, lsp_fallback = true })
 end, { desc = "Format file" })
+keymap("n", "<leader>ll", function()
+  require("lint").try_lint()
+end, { desc = "Lint file" })
 
 -- Visual mode
 keymap("v", "<", "<gv")
